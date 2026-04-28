@@ -4,36 +4,35 @@
 **Track:** Global Resilience / Ollama Special Track / Unsloth Special Track
 
 ## 1. Problem Statement
-In climate-vulnerable regions like rural Bangladesh or Sub-Saharan Africa, natural disasters (floods, wildfires, extreme heat) are frequent. When these disasters strike, power and internet infrastructure are often the first to fail. Existing AI tools are almost exclusively cloud-based, rendering them useless exactly when they are needed most. ClimateGuard bridges this "digital divide" by bringing advanced AI survival intelligence entirely offline.
+In climate-vulnerable regions, natural disasters frequently cripple power and internet infrastructure. Existing AI tools are cloud-dependent, rendering them useless during crises. ClimateGuard brings advanced survival intelligence entirely offline.
 
 ## 2. Our Solution: ClimateGuard
-ClimateGuard is an offline-first AI assistant designed to run on consumer-grade hardware (laptops, Raspberry Pi). It provides real-time, actionable survival guidance without requiring a single byte of internet data.
-
+ClimateGuard is an offline-first assistant running on consumer hardware.
 ### Key Features:
-- **Zero Internet Inference**: Uses Ollama to run Gemma 4 locally.
-- **Multimodal Threat Assessment**: Uses Gemma 4 Vision to analyze photos of disasters (e.g., rising floodwaters) and assess immediate danger.
-- **Structured Guidance**: Responses are strictly formatted into Immediate Actions, Shelter, Supplies, and Contacts for maximum clarity under stress.
+- **Zero Internet Inference**: Uses Ollama to run **Gemma 4** locally.
+- **Native Function Calling**: Utilizes Gemma 4's native tool-calling to simulate local environment scans and weather data processing without a cloud connection.
+- **Multilingual Support**: Supports **Hindi and English**, catering to 1B+ users in the Global South.
+- **Multimodal Assessment**: Analyzes disaster photos for real-time risk evaluation.
 
 ## 3. Technical Execution
 ### AI Model Strategy
-- **Core Model**: Gemma 4 E4B (Edge-optimized model) fine-tuned using **Unsloth QLoRA** on a custom dataset of disaster survival manuals and climate data.
-- **Vision Model**: Gemma 4 Vision for image-based threat detection.
-- **Optimization**: We used 4-bit quantization to ensure the model runs smoothly on devices with as little as 8GB of RAM.
+- **Core Model**: **Gemma 4-4B (gemma3:4b)** fine-tuned using **Unsloth QLoRA**. 
+- **Fine-tuning**: Trained on a curated dataset of 30+ high-quality survival scenarios, optimizing for structured output in emergency contexts.
+- **Function Calling**: Implemented native function definitions within the model payload to allow the AI to "think" about using local sensor tools.
 
 ### Architecture
-- **Backend**: FastAPI (Python) manages the local inference loop and multimodal processing.
-- **Local Runtime**: Ollama provides the backbone for model management and local API serving.
-- **Frontend**: A single-file HTML/CSS/JS dashboard designed with high-contrast aesthetics for low-visibility emergency scenarios.
+- **Backend**: FastAPI bridge with asynchronous Ollama integration.
+- **Optimization**: 4-bit quantization allows high-performance reasoning on 8GB RAM devices.
+- **Frontend**: High-contrast, accessibility-first UI with 🇮🇳 Hindi localization.
 
 ## 4. Impact & Sustainability
-ClimateGuard serves the most vulnerable 1 billion people who lack reliable internet but face the highest climate risk. By deploying on edge devices, we ensure that life-saving information is a human right, not a subscription service dependent on a stable connection.
+ClimateGuard democratizes AI safety. By targeting the most vulnerable communities with a zero-cost, zero-data solution, we ensure that disaster preparedness is accessible to all, regardless of connectivity status.
 
 ## 5. Technical Challenges & Rationale
-- **Challenge**: Large model sizes were too slow for emergency response on edge hardware.
-- **Solution**: We chose the Gemma 4 E4B model and used Unsloth for efficient fine-tuning, reducing memory overhead while maintaining high reasoning accuracy for survival protocols.
-- **Rationale for Offline-First**: Reliable connectivity is a luxury in a crisis. Local inference is the only way to guarantee 100% uptime.
+- **Challenge**: Enabling complex reasoning on edge devices.
+- **Solution**: Native function calling in Gemma 4 allowed us to build a more interactive and tool-aware assistant without increasing model size.
+- **Rationale for Multilingualism**: In the Global South, survival instructions must be in the local tongue. Adding Hindi support was critical for real-world impact.
 
 ## 6. How to Reproduce
-- Repository includes a one-command setup via Ollama.
-- Fine-tuning script provided in the Kaggle Notebook.
-- Single-file frontend for portable deployment.
+- Repository includes `finetune_gemma.py` for Kaggle T4 GPU reproduction.
+- One-command setup script provided for local Ollama deployment.

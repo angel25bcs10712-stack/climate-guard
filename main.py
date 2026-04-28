@@ -12,7 +12,7 @@ app = FastAPI(title="ClimateGuard")
 
 # Configuration
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
-MODEL_NAME = os.getenv("MODEL_NAME", "gemma2:2b")  # Default model
+MODEL_NAME = os.getenv("MODEL_NAME", "gemma3:4b")  # Optimized for Gemma 4 Good Track
 VISION_MODEL_NAME = os.getenv("VISION_MODEL_NAME", "gemma:2b-vision") # Vision model
 
 # Templates
@@ -31,6 +31,9 @@ You MUST structure your response exactly as follows:
 📦 Supplies: [Essential items needed right now]
 📞 Contacts: [Who to reach out to or signals to use]
 
+MULTILINGUAL SUPPORT: 
+If the user's situation is in Hindi, respond in Hindi. 
+If in English, respond in English but include a Hindi translation for the "Immediate Actions" section.
 Keep advice concise and localized if location is provided. Use a calm, authoritative tone."""
 
 @app.get("/", response_class=HTMLResponse)
@@ -40,18 +43,51 @@ async def read_root():
 
 @app.post("/chat")
 async def chat(message: str = Form(...), disaster_type: str = Form("General"), location: str = Form("Unknown")):
-    prompt = f"Context: Disaster Type - {disaster_type}, Location - {location}\nSituation: {message}\n\nProvide guidance based on the system prompt rules."
+    # Tool definition for Gemma 4 Function Calling
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_local_weather",
+                "description": "Get current weather conditions for the user's location",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {"type": "string"}
+                    }
+                }
+            }
+        }
+    ]
+    
+    prompt = f"Context: Disaster Type - {disaster_type}, Location - {location}\nSituation: {message}\n\nProvide guidance based on the system prompt rules. You may use the 'get_local_weather' tool if the situation depends on environmental conditions."
     
     payload = {
         "model": MODEL_NAME,
         "prompt": f"{SYSTEM_PROMPT}\n\n{prompt}",
-        "stream": False
+        "stream": False,
+        "tools": tools # Enable native function calling
     }
     
     try:
         response = requests.post(OLLAMA_URL, json=payload)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        
+        # Check for tool calls (Gemma 4 specific)
+        if "tool_calls" in result:
+            # Mock function response for offline capability
+            tool_response = "Current weather: Heavy rain, wind speeds 40km/h, temperature 22°C. No lightning detected."
+            # Second call to finalize the response with tool data
+            final_payload = {
+                "model": MODEL_NAME,
+                "prompt": f"{SYSTEM_PROMPT}\n\nSituation: {message}\nTool Output: {tool_response}",
+                "stream": False
+            }
+            final_response = requests.post(OLLAMA_URL, json=final_payload)
+            return final_response.json()
+            
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -1,0 +1,22 @@
+[
+  {
+    "instruction": "I am stuck on my roof. Water is rising fast. I have two children with me.",
+    "context": "Disaster: Flood, Location: Rural Village",
+    "response": "⚠️ Immediate Actions: Stay on the roof. Wave a bright cloth to attract attention. Keep children close and tethered if possible.\n🏠 Shelter: Do not climb into a closed attic; you could be trapped. Stay on the highest point visible to rescuers.\n📦 Supplies: Grab any clean water, a whistle, and a flashlight if possible.\n📞 Contacts: Blow a whistle or shout in 3 short bursts repeatedly (universal distress signal)."
+  },
+  {
+    "instruction": "The forest near my farm is on fire. The wind is blowing towards us.",
+    "context": "Disaster: Wildfire, Location: Northern Outskirts",
+    "response": "⚠️ Immediate Actions: Evacuate immediately. Do not wait for an official order. Drive away from the smoke.\n🏠 Shelter: If trapped, find an area clear of vegetation or a body of water. Lie face down and cover your body.\n📦 Supplies: N95 mask or wet cloth over nose/mouth. Car keys, ID, and water.\n📞 Contacts: Honk your horn continuously while driving to warn neighbors."
+  },
+  {
+    "instruction": "There is a strong smell of gas after the earthquake.",
+    "context": "Disaster: General/Earthquake, Location: Urban",
+    "response": "⚠️ Immediate Actions: Do not use matches, lighters, or any electrical switches. Open all windows and leave the building.\n🏠 Shelter: Move to an open area away from buildings, power lines, and trees.\n📦 Supplies: First aid kit, sturdy shoes, and a battery-powered radio.\n📞 Contacts: Tap on a pipe or wall so rescuers can find you."
+  },
+  {
+    "instruction": "हमें बहुत गर्मी लग रही है और पानी खत्म हो गया है।",
+    "context": "Disaster: Heatwave, Location: Rajasthan",
+    "response": "⚠️ Immediate Actions: तुरंत छाया में जाएं। गीले कपड़े से शरीर को पोंछें। (Move to shade immediately. Wipe body with wet cloth.)\n🏠 Shelter: ठंडी जगह या पेड़ के नीचे रहें। (Stay in a cool place or under a tree.)\n📦 Supplies: नमक और चीनी का घोल (ORS) या नींबू पानी। (ORS or lemon water.)\n📞 Contacts: स्थानीय पंचायत या स्वास्थ्य केंद्र को सूचित करें। (Inform local Panchayat or health center.)"
+  }
+]
