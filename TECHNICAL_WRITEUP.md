@@ -1,10 +1,10 @@
 # Technical Writeup: ClimateGuard
 **Project Name:** ClimateGuard — Offline Disaster Preparedness Assistant
 **Hackathon:** Gemma 4 Good
-**Track:** Global Resilience / Ollama Special Track / Unsloth Special Track
+**Track:** Global Resilience (Main Track) / Ollama Special Track / Unsloth Special Track
 
 ## 1. Problem Statement
-In climate-vulnerable regions, natural disasters frequently cripple power and internet infrastructure. Existing AI tools are cloud-dependent, rendering them useless during crises. ClimateGuard brings advanced survival intelligence entirely offline.
+ClimateGuard addresses the critical "connectivity gap" in global resilience. In climate-vulnerable regions, natural disasters frequently cripple power and internet infrastructure. By building a system that **anticipates, mitigates, and responds** to these challenges without cloud dependency, we ensure life-saving intelligence reaches those who need it most, when they need it most.
 
 ## 2. Our Solution: ClimateGuard
 ClimateGuard is an offline-first assistant running on consumer hardware.
