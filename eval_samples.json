@@ -1,0 +1,82 @@
+[
+  {
+    "instruction": "Water entered our ground floor at midnight. Electricity is still on and my grandparents cannot walk fast.",
+    "context": "Disaster: Flood, Location: Assam village"
+  },
+  {
+    "instruction": "The nearby hill is cracking after heavy rain and mud is moving toward houses.",
+    "context": "Disaster: Landslide, Location: Himachal foothills"
+  },
+  {
+    "instruction": "Dry winds and smoke are increasing quickly. We have 10 minutes before we must leave.",
+    "context": "Disaster: Wildfire, Location: Forest-edge farm"
+  },
+  {
+    "instruction": "There is extreme heat, my child has dizziness and we have little drinking water left.",
+    "context": "Disaster: Heatwave, Location: Rajasthan peri-urban area"
+  },
+  {
+    "instruction": "Cyclone warning announced. Our roof is weak and network is unstable.",
+    "context": "Disaster: Hurricane, Location: Coastal Bangladesh"
+  },
+  {
+    "instruction": "हमारे इलाके में तेज गर्मी है, दादी बेहोश जैसी लग रही हैं और पानी कम है।",
+    "context": "Disaster: Heatwave, Location: Rural Uttar Pradesh"
+  },
+  {
+    "instruction": "The river rose suddenly and we can hear people shouting for help from across the road.",
+    "context": "Disaster: Flood, Location: Low-lying town center"
+  },
+  {
+    "instruction": "Dust storm plus high temperature, my father has asthma and power is out.",
+    "context": "Disaster: Heatwave, Location: Semi-arid settlement"
+  },
+  {
+    "instruction": "A crack appeared in the wall after continuous rain and the slope behind us is saturated.",
+    "context": "Disaster: Landslide, Location: Mountain hamlet"
+  },
+  {
+    "instruction": "My phone battery is 8%. Strong winds and glass are breaking outside.",
+    "context": "Disaster: Hurricane, Location: Coastal city apartment"
+  },
+  {
+    "instruction": "Flash flood hit the market area. I am with two children and one infant.",
+    "context": "Disaster: Flood, Location: District bazaar"
+  },
+  {
+    "instruction": "Smoke is thick indoors and visibility outside is poor due to nearby fire.",
+    "context": "Disaster: Wildfire, Location: Wildland-urban interface"
+  },
+  {
+    "instruction": "Long drought has dried our local well and we have one day of water storage.",
+    "context": "Disaster: Drought, Location: Sub-Saharan rural village"
+  },
+  {
+    "instruction": "Heavy rain, no internet, and the bridge to town may be submerged by dawn.",
+    "context": "Disaster: Flood, Location: River-crossing settlement"
+  },
+  {
+    "instruction": "We heard a landslide 2 km away and now rocks are falling near our road.",
+    "context": "Disaster: Landslide, Location: Hill road community"
+  },
+  {
+    "instruction": "My mother has chest pain in this heat and ambulance response is delayed.",
+    "context": "Disaster: Heatwave, Location: Small town outskirts"
+  },
+  {
+    "instruction": "Strong cyclone winds expected in 2 hours. We have one torch and no backup radio.",
+    "context": "Disaster: Hurricane, Location: Fishing village"
+  },
+  {
+    "instruction": "हवा में धुआं भर गया है, आंखों में जलन हो रही है और बाहर आग दिख रही है।",
+    "context": "Disaster: Wildfire, Location: Rural settlement edge"
+  },
+  {
+    "instruction": "Our school building is being used as shelter; families need immediate organized guidance.",
+    "context": "Disaster: Flood, Location: Community relief site"
+  },
+  {
+    "instruction": "No rain for months, crop failure started, and children are dehydrated.",
+    "context": "Disaster: Drought, Location: Agricultural region"
+  }
+]

@@ -3,10 +3,9 @@ import base64
 import httpx
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Optional
+from typing import Any, Dict, List
 
 app = FastAPI(title="ClimateGuard")
 
@@ -18,9 +17,12 @@ app.add_middleware(
 )
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
-MODEL_NAME = os.getenv("MODEL_NAME", "gemma3:4b")          # ✅ Fixed: was gemma2:2b
-VISION_MODEL_NAME = os.getenv("VISION_MODEL_NAME", "gemma3:4b")  # ✅ Fixed: gemma3:4b handles vision
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_GENERATE_URL = f"{OLLAMA_BASE_URL}/api/generate"
+OLLAMA_CHAT_URL = f"{OLLAMA_BASE_URL}/api/chat"
+OLLAMA_TAGS_URL = f"{OLLAMA_BASE_URL}/api/tags"
+MODEL_NAME = os.getenv("MODEL_NAME", "gemma3:4b")
+VISION_MODEL_NAME = os.getenv("VISION_MODEL_NAME", "gemma3:4b")
 
 # ── Templates ──────────────────────────────────────────────────────────────────
 templates = Jinja2Templates(directory="templates")
@@ -76,6 +78,60 @@ Here is a sample ClimateGuard response for a flood situation:
 To activate real AI: Install Ollama → run `ollama pull gemma3:4b` → run `ollama serve`"""
 
 
+def _build_tools() -> List[Dict[str, Any]]:
+    return [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_local_weather",
+                "description": "Get current weather conditions for the user's location to improve disaster guidance",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "The user's location",
+                        }
+                    },
+                    "required": ["location"],
+                },
+            },
+        }
+    ]
+
+
+def _extract_tool_calls(chat_result: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Ollama chat responses usually return tool calls under result.message.tool_calls.
+    We also support a top-level tool_calls key for compatibility.
+    """
+    message = chat_result.get("message", {})
+    if isinstance(message, dict) and isinstance(message.get("tool_calls"), list):
+        return message["tool_calls"]
+    if isinstance(chat_result.get("tool_calls"), list):
+        return chat_result["tool_calls"]
+    return []
+
+
+def _run_mock_tool(tool_call: Dict[str, Any], disaster_type: str, location: str) -> Dict[str, Any]:
+    function_payload = tool_call.get("function", {}) if isinstance(tool_call, dict) else {}
+    name = function_payload.get("name", "unknown_tool")
+    args = function_payload.get("arguments", {}) or {}
+
+    selected_location = location
+    if isinstance(args, dict):
+        selected_location = args.get("location", location)
+
+    if name != "get_local_weather":
+        return {"error": f"Unsupported tool: {name}"}
+
+    return {
+        "location": selected_location,
+        "conditions": "Heavy rain, wind 40km/h, temp 22C, visibility low",
+        "flood_risk": "HIGH" if disaster_type.lower() == "flood" else "MODERATE",
+    }
+
+
 # ── Root endpoint ──────────────────────────────────────────────────────────────
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
@@ -89,75 +145,80 @@ async def chat(
     disaster_type: str = Form("General"),
     location: str = Form("Unknown"),
 ):
-    # Native function calling tool definition (Gemma 4 feature)
-    tools = [
-        {
-            "type": "function",
-            "function": {
-                "name": "get_local_weather",
-                "description": "Get current weather conditions for the user's location to improve disaster guidance",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "The user's location"
-                        }
-                    },
-                    "required": ["location"]
-                }
-            }
-        }
-    ]
-
-    prompt = (
+    user_prompt = (
         f"Context: Disaster Type - {disaster_type}, Location - {location}\n"
         f"Situation: {message}\n\n"
         f"Provide life-saving guidance. Use the get_local_weather tool if environmental "
         f"conditions are relevant to the advice."
     )
-
-    payload = {
-        "model": MODEL_NAME,
-        "prompt": f"{SYSTEM_PROMPT}\n\n{prompt}",
-        "stream": False,
-        "tools": tools,
-    }
+    tools = _build_tools()
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": user_prompt},
+    ]
 
     try:
-        async with httpx.AsyncClient(timeout=60.0) as client:  # ✅ Fixed: async httpx
-            resp = await client.post(OLLAMA_URL, json=payload)
-            resp.raise_for_status()
-            result = resp.json()
-
-            # Handle Gemma 4 function calling response
-            if "tool_calls" in result:
-                # Offline mock weather data — no external API needed
-                weather_data = {
-                    "location": location,
-                    "conditions": "Heavy rain, wind 40km/h, temp 22°C, visibility low",
-                    "flood_risk": "HIGH" if disaster_type.lower() == "flood" else "MODERATE",
-                }
-                tool_response = str(weather_data)
-
-                # Second pass with tool result incorporated
-                final_payload = {
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            # First pass with native tool definitions.
+            resp = await client.post(
+                OLLAMA_CHAT_URL,
+                json={
                     "model": MODEL_NAME,
-                    "prompt": (
-                        f"{SYSTEM_PROMPT}\n\n"
-                        f"Situation: {message}\n"
-                        f"Weather Tool Output: {tool_response}\n\n"
-                        f"Now provide final guidance incorporating the weather data."
-                    ),
+                    "messages": messages,
+                    "tools": tools,
                     "stream": False,
-                }
-                final_resp = await client.post(OLLAMA_URL, json=final_payload)
-                return JSONResponse(final_resp.json())
+                },
+            )
+            if resp.status_code < 400:
+                result = resp.json()
+                tool_calls = _extract_tool_calls(result)
 
-            return JSONResponse(result)
+                if tool_calls:
+                    conversation = list(messages)
+                    assistant_message = result.get("message", {})
+                    if assistant_message:
+                        conversation.append(assistant_message)
+
+                    for tool_call in tool_calls:
+                        function_payload = tool_call.get("function", {})
+                        function_name = function_payload.get("name", "unknown_tool")
+                        tool_output = _run_mock_tool(tool_call, disaster_type, location)
+                        conversation.append(
+                            {
+                                "role": "tool",
+                                "name": function_name,
+                                "content": str(tool_output),
+                            }
+                        )
+
+                    final_resp = await client.post(
+                        OLLAMA_CHAT_URL,
+                        json={"model": MODEL_NAME, "messages": conversation, "stream": False},
+                    )
+                    final_resp.raise_for_status()
+                    final_json = final_resp.json()
+                    final_message = final_json.get("message", {}).get("content")
+                    if final_message:
+                        return JSONResponse({"response": final_message})
+                    return JSONResponse(final_json)
+
+                initial_content = result.get("message", {}).get("content")
+                if initial_content:
+                    return JSONResponse({"response": initial_content})
+
+            # Backward-compatible generate fallback if chat endpoint is unavailable.
+            generate_resp = await client.post(
+                OLLAMA_GENERATE_URL,
+                json={
+                    "model": MODEL_NAME,
+                    "prompt": f"{SYSTEM_PROMPT}\n\n{user_prompt}",
+                    "stream": False,
+                },
+            )
+            generate_resp.raise_for_status()
+            return JSONResponse(generate_resp.json())
 
     except httpx.ConnectError:
-        # ✅ Fixed: graceful demo fallback instead of crashing
         return JSONResponse({"response": DEMO_RESPONSE})
     except Exception as e:
         return JSONResponse({"response": f"⚠️ Error: {str(e)}\n\nMake sure Ollama is running: `ollama serve`"})
@@ -180,7 +241,7 @@ async def analyze_image(
     )
 
     payload = {
-        "model": VISION_MODEL_NAME,  # ✅ Fixed: gemma3:4b handles vision
+        "model": VISION_MODEL_NAME,
         "prompt": f"{SYSTEM_PROMPT}\n\n{prompt}",
         "images": [image_base64],
         "stream": False,
@@ -188,7 +249,7 @@ async def analyze_image(
 
     try:
         async with httpx.AsyncClient(timeout=90.0) as client:
-            resp = await client.post(OLLAMA_URL, json=payload)
+            resp = await client.post(OLLAMA_GENERATE_URL, json=payload)
             resp.raise_for_status()
             return JSONResponse(resp.json())
     except httpx.ConnectError:
@@ -202,7 +263,7 @@ async def analyze_image(
 async def health():
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
-            r = await client.get("http://localhost:11434/api/tags")
+            r = await client.get(OLLAMA_TAGS_URL)
             models = r.json().get("models", [])
             return {"ollama": "online", "models": [m["name"] for m in models]}
     except Exception:

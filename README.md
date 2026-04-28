@@ -7,7 +7,7 @@
 [![Ollama](https://img.shields.io/badge/Ollama-offline--first-orange.svg)](https://ollama.com)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**ClimateGuard** is a fully offline AI assistant that provides life-saving, real-time disaster guidance to communities in climate-vulnerable regions. Powered by **Gemma 4 via Ollama** — zero internet required after setup.
+**ClimateGuard** is a fully offline AI assistant that provides life-saving, real-time disaster guidance to communities in climate-vulnerable regions. Powered by **Gemma 3 4B via Ollama (`gemma3:4b`)** by default, with a drop-in path for Gemma 4 variants.
 
 ---
 
@@ -21,10 +21,10 @@ Billions of people in rural Bangladesh, Sub-Saharan Africa, and Pacific Island n
 
 ## 🚀 Key Features
 
-- **🔌 Zero Internet Required** — Powered by Gemma 4 via Ollama, runs 100% on-device
+- **🔌 Zero Internet Required** — Powered by Gemma via Ollama, runs 100% on-device
 - **📷 Multimodal Analysis** — Upload a photo of a threat (flood, smoke, landslide) for visual AI assessment
 - **🌐 Multilingual** — Responds in English + Hindi translation for Immediate Actions
-- **⚡ Native Function Calling** — Gemma 4's function calling used for weather-aware guidance
+- **⚡ Native Function Calling** — Gemma tool calling used for weather-aware guidance
 - **🏠 6 Disaster Types** — Flood, Wildfire, Hurricane, Heatwave, Landslide, Drought
 - **🔒 Privacy First** — No data ever leaves the device
 
@@ -34,7 +34,7 @@ Billions of people in rural Bangladesh, Sub-Saharan Africa, and Pacific Island n
 
 | Component | Technology |
 |---|---|
-| AI Model | Gemma 3/4 via Ollama (`gemma3:4b`) |
+| AI Model | Gemma via Ollama (default: `gemma3:4b`) |
 | Fine-tuning | Unsloth QLoRA (4-bit, Kaggle T4 GPU) |
 | Backend | Python + FastAPI (async) |
 | Frontend | Vanilla HTML/CSS/JS |
@@ -72,6 +72,13 @@ python main.py
 ```
 
 Open **http://localhost:8000** in your browser ✅
+
+Optional environment variables:
+```bash
+set OLLAMA_BASE_URL=http://localhost:11434
+set MODEL_NAME=gemma3:4b
+set VISION_MODEL_NAME=gemma3:4b
+```
 
 ---
 
@@ -120,12 +127,33 @@ A single laptop running ClimateGuard can serve an **entire village** — no WiFi
 - ✅ Public GitHub repository
 - ✅ Technical writeup (`TECHNICAL_WRITEUP.md`)
 - ✅ Fine-tuning script (`finetune_gemma.py`) + training data
+- ✅ Lightweight evaluation script (`evaluate.py`) + Kaggle-ready report output
 - ✅ Multimodal (photo input)
 - ✅ Native function calling
 - ✅ Ollama deployment
 - ✅ Unsloth fine-tuning
 - ⬜ Demo video *(recording May 14-15)*
 - ⬜ Kaggle notebook *(uploading May 10)*
+
+---
+
+## 📊 Lightweight Evaluation
+
+Run a reproducible local sanity-check and generate a report snippet for Kaggle:
+
+```bash
+python evaluate.py --model gemma3:4b --dataset training_data.json
+```
+
+Or use the stronger benchmark set:
+
+```bash
+python evaluate.py --base-url http://localhost:11434 --model gemma3:4b --dataset eval_samples.json
+```
+
+This writes:
+- `eval_results.json` (raw metrics + per-sample results)
+- `eval_report.md` (paste-ready markdown section for your writeup)
 
 ---
 

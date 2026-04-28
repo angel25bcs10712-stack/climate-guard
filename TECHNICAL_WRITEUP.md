@@ -9,14 +9,15 @@ ClimateGuard addresses the critical "connectivity gap" in global resilience. In 
 ## 2. Our Solution: ClimateGuard
 ClimateGuard is an offline-first assistant running on consumer hardware.
 ### Key Features:
-- **Zero Internet Inference**: Uses Ollama to run **Gemma 4** locally.
-- **Native Function Calling**: Utilizes Gemma 4's native tool-calling to simulate local environment scans and weather data processing without a cloud connection.
+- **Zero Internet Inference**: Uses Ollama to run **Gemma 3 4B (`gemma3:4b`)** locally by default.
+- **Native Function Calling**: Utilizes native tool-calling to simulate local environment scans and weather data processing without a cloud connection.
 - **Multilingual Support**: Supports **Hindi and English**, catering to 1B+ users in the Global South.
 - **Multimodal Assessment**: Analyzes disaster photos for real-time risk evaluation.
 
 ## 3. Technical Execution
 ### AI Model Strategy
-- **Core Model**: **Gemma 4-4B (gemma3:4b)** fine-tuned using **Unsloth QLoRA**. 
+- **Core Runtime Model**: **Gemma 3 4B (`gemma3:4b`)** served locally via Ollama.
+- **Fine-tuning Target**: **Gemma 4 4B instruct checkpoint (`unsloth/gemma-4-4b-it-bnb-4bit`)** in the training pipeline.
 - **Fine-tuning**: Trained on a curated dataset of 30+ high-quality survival scenarios, optimizing for structured output in emergency contexts.
 - **Function Calling**: Implemented native function definitions within the model payload to allow the AI to "think" about using local sensor tools.
 
@@ -36,3 +37,7 @@ ClimateGuard democratizes AI safety. By targeting the most vulnerable communitie
 ## 6. How to Reproduce
 - Repository includes `finetune_gemma.py` for Kaggle T4 GPU reproduction.
 - One-command setup script provided for local Ollama deployment.
+- `evaluate.py` provides lightweight reproducible checks for:
+  - structured output adherence,
+  - offline-safety phrasing compliance,
+  - latency benchmarks.
