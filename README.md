@@ -7,7 +7,17 @@
 [![Ollama](https://img.shields.io/badge/Ollama-offline--first-orange.svg)](https://ollama.com)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-**ClimateGuard** is a fully offline AI assistant that provides life-saving, real-time disaster guidance to communities in climate-vulnerable regions. Powered by **Gemma 3 4B via Ollama (`gemma3:4b`)** by default, with a drop-in path for Gemma 4 variants.
+**ClimateGuard** is a fully offline AI assistant that provides life-saving, real-time disaster guidance to communities in climate-vulnerable regions. Powered by **Gemma via Ollama** on local hardware, with a drop-in path across Gemma model variants.
+
+## 🔥 Why This Stands Out
+
+- **True offline-first design**: works with zero internet during infrastructure failure
+- **Multimodal emergency triage**: image + text workflows, not text-only chat
+- **Structured high-stress responses**: deterministic format for rapid action
+- **Localized and multilingual support**: designed for vulnerable communities, not only urban users
+- **Operationally credible**: health/status APIs, guardrails, and reproducible evaluation artifacts
+
+For a judge-friendly project narrative, see `PROJECT_BRIEF.md`.
 
 ---
 
@@ -27,6 +37,7 @@ Billions of people in rural Bangladesh, Sub-Saharan Africa, and Pacific Island n
 - **⚡ Native Function Calling** — Gemma tool calling used for weather-aware guidance
 - **🏠 6 Disaster Types** — Flood, Wildfire, Hurricane, Heatwave, Landslide, Drought
 - **🔒 Privacy First** — No data ever leaves the device
+- **🎬 Demo Walkthrough Mode** — One-click 3-scenario script for smooth submission video recording
 
 ---
 
@@ -78,6 +89,10 @@ Optional environment variables:
 set OLLAMA_BASE_URL=http://localhost:11434
 set MODEL_NAME=gemma3:4b
 set VISION_MODEL_NAME=gemma3:4b
+set MAX_MESSAGE_LENGTH=1200
+set MAX_IMAGE_BYTES=5242880
+set RATE_LIMIT_WINDOW_SECONDS=60
+set RATE_LIMIT_MAX_REQUESTS=40
 ```
 
 ---
@@ -134,6 +149,21 @@ A single laptop running ClimateGuard can serve an **entire village** — no WiFi
 - ✅ Unsloth fine-tuning
 - ⬜ Demo video *(recording May 14-15)*
 - ⬜ Kaggle notebook *(uploading May 10)*
+- ✅ Narrated demo script (`NARRATED_DEMO_SCRIPT.md`) for 2-3 minute recording
+
+---
+
+## 🧭 Judging Criteria Alignment
+
+Official competition page: [Gemma 4 Good Hackathon on Kaggle](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
+
+ClimateGuard is optimized for the commonly communicated judging dimensions (impact, technical execution, clear use case/functionality, and accessibility for constrained environments):
+
+- **Impact**: disaster-response support for underserved, climate-vulnerable regions
+- **Technical execution**: end-to-end working multimodal app with local inference + guardrails
+- **Clear use case**: single high-stakes workflow (incident triage and survival guidance)
+- **Functionality**: live text and image paths, structured emergency outputs, deployable locally
+- **Accessibility**: runs on local hardware with zero-internet operation
 
 ---
 
@@ -154,6 +184,28 @@ python evaluate.py --base-url http://localhost:11434 --model gemma3:4b --dataset
 This writes:
 - `eval_results.json` (raw metrics + per-sample results)
 - `eval_report.md` (paste-ready markdown section for your writeup)
+
+Current evaluation checks:
+- Required emergency structure adherence
+- Offline-safety phrasing violations
+- Latency (average and P95)
+
+---
+
+## 🩺 Operational Endpoints
+
+- `GET /api/health` - checks local Ollama connectivity and visible models
+- `GET /api/status` - reports app version, active models, and runtime safety limits
+
+---
+
+## 🔐 Reliability & Safety Guardrails
+
+- Input normalization and length validation for chat fields
+- Image type and file-size checks for multimodal endpoint
+- In-memory request rate limiting to reduce abuse/spam bursts
+- Consistent response extraction across Ollama chat/generate payloads
+- UI includes estimated severity, response confidence, and incident report export/share actions
 
 ---
 

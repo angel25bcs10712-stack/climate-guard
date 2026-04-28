@@ -234,6 +234,74 @@
             animation: slideIn 0.5s ease-out;
         }
 
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-pill {
+            border-radius: 999px;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .meta-pill.low { color: #2ecc71; }
+        .meta-pill.medium { color: #f1c40f; }
+        .meta-pill.high, .meta-pill.critical { color: #e74c3c; }
+
+        .report-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .mini-btn {
+            background: #26262c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            border-radius: 10px;
+            padding: 0.55rem 0.8rem;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .demo-box {
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 0.9rem;
+            background: rgba(74, 144, 226, 0.08);
+        }
+
+        .demo-title {
+            font-size: 0.83rem;
+            color: #8ec5ff;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .demo-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-status {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            min-height: 1.2rem;
+        }
+
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -343,6 +411,15 @@
                 <div class="loader" id="loader"></div>
                 <span>GET SURVIVAL GUIDANCE</span>
             </button>
+
+            <div class="demo-box">
+                <div class="demo-title">Demo Walkthrough Mode</div>
+                <div class="demo-actions">
+                    <button class="mini-btn" onclick="runDemoWalkthrough()">Start 3-Scenario Demo</button>
+                    <button class="mini-btn" onclick="stopDemoWalkthrough()">Stop Demo</button>
+                </div>
+                <div class="demo-status" id="demoStatus">Ready for recording.</div>
+            </div>
         </section>
 
         <section class="panel response-panel">
@@ -361,11 +438,46 @@
 
     <script>
         let currentDisaster = 'Flood';
+        let latestResponseText = '';
+        let latestMeta = null;
+        let demoRunning = false;
+
+        const DEMO_SCENARIOS = [
+            {
+                title: 'Flood Escalation',
+                disaster: 'Flood',
+                location: 'Sylhet, Bangladesh',
+                message: 'Water has entered the ground floor and is rising quickly. Two children and one elderly person are inside.'
+            },
+            {
+                title: 'Wildfire Threat',
+                disaster: 'Wildfire',
+                location: 'Nashik Outskirts, India',
+                message: 'Dense smoke is approaching our farm and the wind is pushing flames toward nearby houses.'
+            },
+            {
+                title: 'Heatwave Emergency',
+                disaster: 'Heatwave',
+                location: 'Rajasthan, India',
+                message: 'An outdoor worker is dizzy, very hot to touch, and not sweating after hours in the sun.'
+            }
+        ];
 
         function setDisaster(type, btn) {
             currentDisaster = type;
             document.querySelectorAll('.disaster-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+        }
+
+        function setDisasterByType(type) {
+            const buttons = document.querySelectorAll('.disaster-btn');
+            for (const btn of buttons) {
+                const clickHandler = btn.getAttribute('onclick') || '';
+                if (clickHandler.includes(`'${type}'`)) {
+                    setDisaster(type, btn);
+                    return;
+                }
+            }
         }
 
         function previewImage(input) {
@@ -431,8 +543,50 @@
             }
         }
 
+        function updateDemoStatus(text) {
+            const el = document.getElementById('demoStatus');
+            if (el) el.textContent = text;
+        }
+
+        function stopDemoWalkthrough() {
+            demoRunning = false;
+            updateDemoStatus('Demo stopped. Ready for recording.');
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function runDemoWalkthrough() {
+            if (demoRunning) {
+                updateDemoStatus('Demo already running...');
+                return;
+            }
+            demoRunning = true;
+            const imageInput = document.getElementById('imageInput');
+            if (imageInput) imageInput.value = '';
+
+            for (let i = 0; i < DEMO_SCENARIOS.length; i++) {
+                if (!demoRunning) return;
+                const scenario = DEMO_SCENARIOS[i];
+                updateDemoStatus(`Scenario ${i + 1}/${DEMO_SCENARIOS.length}: ${scenario.title}`);
+
+                setDisasterByType(scenario.disaster);
+                document.getElementById('locationInput').value = scenario.location;
+                document.getElementById('situationInput').value = scenario.message;
+
+                await getHelp();
+                await sleep(3000);
+            }
+
+            demoRunning = false;
+            updateDemoStatus('Demo completed. You can now export/share any generated incident report.');
+        }
+
         function renderResponse(text) {
             const output = document.getElementById('output');
+            latestResponseText = text || '';
+            latestMeta = buildResponseMeta(latestResponseText);
             
             // Basic parser for the structured output
             const sections = {
@@ -460,6 +614,16 @@
             });
 
             let html = `<div class="output-card">`;
+            html += `
+                <div class="meta-row">
+                    <div class="meta-pill ${latestMeta.severity.toLowerCase()}">Severity: ${latestMeta.severity}</div>
+                    <div class="meta-pill">Response Confidence: ${latestMeta.confidence}%</div>
+                </div>
+                <div class="report-actions">
+                    <button class="mini-btn" onclick="exportIncidentReportPdf()">Export Incident Report (PDF)</button>
+                    <button class="mini-btn" onclick="shareIncidentReport()">Share Report</button>
+                </div>
+            `;
             for (const header in sections) {
                 const content = sections[header].trim();
                 if (content) {
@@ -474,6 +638,96 @@
             html += `</div>`;
             
             output.innerHTML = html;
+        }
+
+        function buildResponseMeta(text) {
+            const lower = (text || '').toLowerCase();
+            let severity = 'Low';
+            const criticalSignals = ['trapped', 'rising fast', 'evacuate immediately', 'gas smell', 'collapse', 'major fire', 'critical'];
+            const highSignals = ['high risk', 'heavy rain', 'wildfire', 'flood', 'landslide', 'hurricane'];
+            const mediumSignals = ['warning', 'prepare', 'watch', 'heatwave', 'storm'];
+
+            if (criticalSignals.some(s => lower.includes(s))) severity = 'Critical';
+            else if (highSignals.some(s => lower.includes(s))) severity = 'High';
+            else if (mediumSignals.some(s => lower.includes(s))) severity = 'Medium';
+
+            const required = ['⚠️ Immediate Actions', '🏠 Shelter', '📦 Supplies', '📞 Contacts'];
+            const hits = required.filter(h => text.includes(h)).length;
+            const confidence = Math.round((hits / required.length) * 100);
+            return { severity, confidence };
+        }
+
+        function buildIncidentReportText() {
+            const situation = document.getElementById('situationInput').value || 'Not provided';
+            const location = document.getElementById('locationInput').value || 'Unknown';
+            const generatedAt = new Date().toLocaleString();
+            const severity = latestMeta?.severity || 'Unknown';
+            const confidence = latestMeta?.confidence ?? 0;
+            return [
+                'ClimateGuard Incident Report',
+                `Generated: ${generatedAt}`,
+                `Disaster Type: ${currentDisaster}`,
+                `Location: ${location}`,
+                `Estimated Severity: ${severity}`,
+                `Response Confidence: ${confidence}%`,
+                '',
+                'Situation',
+                situation,
+                '',
+                'Guidance',
+                latestResponseText || 'No response yet.'
+            ].join('\n');
+        }
+
+        function exportIncidentReportPdf() {
+            const reportText = buildIncidentReportText();
+            const printable = window.open('', '_blank');
+            if (!printable) {
+                alert('Popup blocked. Please allow popups to export PDF.');
+                return;
+            }
+            const html = `
+                <html>
+                    <head>
+                        <title>ClimateGuard Incident Report</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 24px; line-height: 1.45; }
+                            pre { white-space: pre-wrap; font-size: 13px; }
+                            h1 { margin: 0 0 12px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>ClimateGuard Incident Report</h1>
+                        <pre>${reportText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+                        <p>Use your browser print dialog and choose "Save as PDF".</p>
+                    </body>
+                </html>
+            `;
+            printable.document.write(html);
+            printable.document.close();
+            printable.focus();
+            printable.print();
+        }
+
+        async function shareIncidentReport() {
+            const reportText = buildIncidentReportText();
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'ClimateGuard Incident Report',
+                        text: reportText
+                    });
+                    return;
+                } catch (e) {
+                    console.error('Share canceled or failed', e);
+                }
+            }
+            try {
+                await navigator.clipboard.writeText(reportText);
+                alert('Incident report copied to clipboard.');
+            } catch (e) {
+                alert('Sharing not available. Please copy manually from exported PDF.');
+            }
         }
     </script>
 </body>
