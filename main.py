@@ -106,6 +106,9 @@ GLOBAL DISTRESS SIGNALS:
 - Name real local resources (Red Cross, Panchayat, NDMA, etc.) by country
 - Mention aftershocks, secondary hazards (disease after flood, fire after quake, etc.)
 - Always end the Contacts section with the country-specific emergency number in bold
+- If the location context is provided as raw GPS coordinates (e.g., "25.5941, 85.1376"):
+  → Use your parametric memory to reverse-geocode the coordinates to the nearest city, state, and country.
+  → Apply the corresponding language rules and helpline contacts (e.g., if coordinates resolve to India, provide side-by-side English + Hindi translations and NDMA helplines!).
 
 You work FULLY OFFLINE — never tell users to check websites or apps.
 Every piece of advice must be executable without power, internet, or outside assistance."""
