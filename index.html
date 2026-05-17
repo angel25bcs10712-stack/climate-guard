@@ -619,11 +619,14 @@
                     showMap(latitude, longitude);
                 },
                 (err) => {
-                    status.textContent = `⚠️ Could not detect location: ${err.message}`;
+                    let errMsg = err.message;
+                    if (err.code === 1) errMsg = "Permission Denied. Please enable location services in your browser settings.";
+                    else if (err.code === 3) errMsg = "Timeout expired. Using cached or manual location.";
+                    status.innerHTML = `<span style="color:var(--danger)">⚠️ Location Error: ${errMsg}<br>💡 Please enter your location manually (e.g. "Patna, Bihar, India") above.</span>`;
                     icon.textContent = '📍';
                     btn.disabled = false;
                 },
-                { timeout: 10000, enableHighAccuracy: true }
+                { timeout: 15000, enableHighAccuracy: false, maximumAge: 60000 }
             );
         }
 
