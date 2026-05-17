@@ -136,39 +136,6 @@ ClimateGuard targets communities in:
 
 A single laptop running ClimateGuard can serve an **entire village** — no WiFi, no cloud, no subscription.
 
----
-
-## 📋 Submission Checklist
-
-- ✅ Working demo (FastAPI app)
-- ✅ Public GitHub repository
-- ✅ Technical writeup (`TECHNICAL_WRITEUP.md`)
-- ✅ Fine-tuning script (`finetune_gemma.py`) + training data
-- ✅ Lightweight evaluation script (`evaluate.py`) + Kaggle-ready report output
-- ✅ Multimodal (photo input)
-- ✅ Native function calling
-- ✅ Ollama deployment
-- ✅ Unsloth fine-tuning
-- ⬜ Demo video *(recording May 14-15)*
-- ⬜ Kaggle notebook *(uploading May 10)*
-- ✅ Narrated demo script (`NARRATED_DEMO_SCRIPT.md`) for 2-3 minute recording
-
----
-
-## 🧭 Judging Criteria Alignment
-
-Official competition page: [Gemma 4 Good Hackathon on Kaggle](https://www.kaggle.com/competitions/gemma-4-good-hackathon)
-
-ClimateGuard is optimized for the commonly communicated judging dimensions (impact, technical execution, clear use case/functionality, and accessibility for constrained environments):
-
-- **Impact**: disaster-response support for underserved, climate-vulnerable regions
-- **Technical execution**: end-to-end working multimodal app with local inference + guardrails
-- **Clear use case**: single high-stakes workflow (incident triage and survival guidance)
-- **Functionality**: live text and image paths, structured emergency outputs, deployable locally
-- **Accessibility**: runs on local hardware with zero-internet operation
-
----
-
 ## 📊 Lightweight Evaluation
 
 Run a reproducible local sanity-check and generate a report snippet for Kaggle:
