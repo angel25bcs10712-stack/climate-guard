@@ -48,3 +48,10 @@ ClimateGuard demonstrates that **cutting-edge AI doesn't need to live in a data 
 In future iterations, ClimateGuard could be pre-installed on ruggedized tablets used by NGOs, embedded in local community centers, or distributed on USB drives in high-risk zones before hurricane season begins. 
 
 When the cloud falls, ClimateGuard stays online.
+
+---
+
+## 🔗 Project Links
+* **Live Demo URL:** [climate-guard.vercel.app](https://climate-guard-6m0aepipk-angel25bcs10712-stacks-projects.vercel.app)
+* **GitHub Repository:** [angel25bcs10712-stack/climate-guard](https://github.com/angel25bcs10712-stack/climate-guard)
+
