@@ -402,6 +402,12 @@
                 </div>
                 <input type="text" id="locationInput" placeholder="e.g. Patna, Bihar, India | Lagos, Nigeria | Miami, Florida, USA">
                 <div id="locationStatus" style="font-size:0.78rem; color:var(--text-dim); margin-top:0.4rem; min-height:1rem;"></div>
+                <div class="demo-locations" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.4rem; align-items:center;">
+                    <span style="font-size:0.75rem; color:var(--text-dim);">Presets:</span>
+                    <button class="disaster-btn" style="padding:0.2rem 0.4rem; font-size:0.72rem; border-radius:4px; margin:0;" onclick="setDemoLoc('Patna, Bihar, India', 25.5941, 85.1376)">🇮🇳 Patna, India</button>
+                    <button class="disaster-btn" style="padding:0.2rem 0.4rem; font-size:0.72rem; border-radius:4px; margin:0;" onclick="setDemoLoc('Miami, Florida, USA', 25.7617, -80.1918)">🇺🇸 Miami, USA</button>
+                    <button class="disaster-btn" style="padding:0.2rem 0.4rem; font-size:0.72rem; border-radius:4px; margin:0;" onclick="setDemoLoc('Cox\'s Bazar, Bangladesh', 21.4272, 92.0058)">🇧🇩 Cox's Bazar</button>
+                </div>
             </div>
 
             <div class="input-group">
@@ -574,6 +580,13 @@
         function toggleMapSection() {
             const section = document.getElementById('mapSection');
             section.style.display = 'none';
+        }
+
+        function setDemoLoc(name, lat, lon) {
+            const input = document.getElementById('locationInput');
+            input.value = name;
+            document.getElementById('locationStatus').innerHTML = `<span style="color:var(--success)">📍 Preset loaded: ${name}</span>`;
+            showMap(lat, lon);
         }
 
         async function detectLocation() {
