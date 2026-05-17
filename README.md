@@ -1,4 +1,4 @@
-![ClimateGuard](climateguard-card.png)
+![ClimateGuard](mockup.png)
 
 # 🛡️ ClimateGuard — Offline Disaster Preparedness Assistant
 
