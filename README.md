@@ -11,6 +11,8 @@
 
 **ClimateGuard** is a fully offline AI assistant that provides life-saving, real-time disaster guidance to communities in climate-vulnerable regions. Powered by **Gemma via Ollama** on local hardware, with a drop-in path across Gemma model variants.
 
+🔗 **Live Demo URL:** [climate-guard.vercel.app](https://climate-guard-6m0aepipk-angel25bcs10712-stacks-projects.vercel.app)
+
 ## 🔥 Why This Stands Out
 
 - **True offline-first design**: works with zero internet during infrastructure failure
