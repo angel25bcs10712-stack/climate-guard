@@ -1,22 +1,102 @@
 [
   {
     "instruction": "I am stuck on my roof. Water is rising fast. I have two children with me.",
-    "context": "Disaster: Flood, Location: Rural Village",
-    "response": "⚠️ Immediate Actions: Stay on the roof. Wave a bright cloth to attract attention. Keep children close and tethered if possible.\n🏠 Shelter: Do not climb into a closed attic; you could be trapped. Stay on the highest point visible to rescuers.\n📦 Supplies: Grab any clean water, a whistle, and a flashlight if possible.\n📞 Contacts: Blow a whistle or shout in 3 short bursts repeatedly (universal distress signal)."
+    "context": "Disaster: Flood, Location: Rural Bihar, India",
+    "response": "Immediate Actions: Stay on the roof and do not attempt to swim. Wave a bright cloth to signal rescuers. Keep children tethered to you. Blow a whistle in 3 short bursts repeatedly.\nShelter: Do not enter a closed attic as you could be trapped. Stay on the highest visible point.\nSupplies: Grab clean water, a flashlight, and a whistle if reachable.\nContacts: Shout or whistle in 3-burst intervals. This is the universal distress signal."
   },
   {
     "instruction": "The forest near my farm is on fire. The wind is blowing towards us.",
-    "context": "Disaster: Wildfire, Location: Northern Outskirts",
-    "response": "⚠️ Immediate Actions: Evacuate immediately. Do not wait for an official order. Drive away from the smoke.\n🏠 Shelter: If trapped, find an area clear of vegetation or a body of water. Lie face down and cover your body.\n📦 Supplies: N95 mask or wet cloth over nose/mouth. Car keys, ID, and water.\n📞 Contacts: Honk your horn continuously while driving to warn neighbors."
+    "context": "Disaster: Wildfire, Location: Nashik Outskirts, India",
+    "response": "Immediate Actions: Evacuate immediately. Do not wait for an official order. Drive away from the smoke, windows up. Wet any cloth and hold it over nose and mouth.\nShelter: If trapped, find an area clear of vegetation or a body of water. Lie face down and cover your body.\nSupplies: N95 mask or wet cloth. Car keys, ID, water, and first aid kit.\nContacts: Honk your horn continuously while driving to warn neighbors."
   },
   {
     "instruction": "There is a strong smell of gas after the earthquake.",
-    "context": "Disaster: General/Earthquake, Location: Urban",
-    "response": "⚠️ Immediate Actions: Do not use matches, lighters, or any electrical switches. Open all windows and leave the building.\n🏠 Shelter: Move to an open area away from buildings, power lines, and trees.\n📦 Supplies: First aid kit, sturdy shoes, and a battery-powered radio.\n📞 Contacts: Tap on a pipe or wall so rescuers can find you."
+    "context": "Disaster: Earthquake, Location: Urban Area",
+    "response": "Immediate Actions: Do not use matches, lighters, or any electrical switches. Open all windows and doors immediately. Leave the building without using the elevator.\nShelter: Move to an open area away from buildings, power lines, and trees.\nSupplies: First aid kit, sturdy shoes, battery-powered radio, and documents.\nContacts: Tap on a pipe or wall in 3-beat patterns so rescuers can locate you."
   },
   {
-    "instruction": "हमें बहुत गर्मी लग रही है और पानी खत्म हो गया है।",
-    "context": "Disaster: Heatwave, Location: Rajasthan",
-    "response": "⚠️ Immediate Actions: तुरंत छाया में जाएं। गीले कपड़े से शरीर को पोंछें। (Move to shade immediately. Wipe body with wet cloth.)\n🏠 Shelter: ठंडी जगह या पेड़ के नीचे रहें। (Stay in a cool place or under a tree.)\n📦 Supplies: नमक और चीनी का घोल (ORS) या नींबू पानी। (ORS or lemon water.)\n📞 Contacts: स्थानीय पंचायत या स्वास्थ्य केंद्र को सूचित करें। (Inform local Panchayat or health center.)"
+    "instruction": "We are experiencing extreme heat and have run out of water.",
+    "context": "Disaster: Heatwave, Location: Rajasthan, India",
+    "response": "Immediate Actions: Move to shade or the coolest room immediately. Wet your clothing with any available liquid. Fan yourself or others constantly. Do not exert energy.\nShelter: Stay in a single room on the ground floor with closed curtains. Ground floors are cooler.\nSupplies: Mix oral rehydration salts (ORS) or salt and sugar in any water available. Use wet cloths on wrists, neck, and forehead.\nContacts: Inform local Panchayat or a community health worker of anyone showing confusion or stopping sweating."
+  },
+  {
+    "instruction": "We hear loud cracking sounds from the hillside above our village. Soil is moving.",
+    "context": "Disaster: Landslide, Location: Darjeeling Hills, India",
+    "response": "Immediate Actions: Move away from the slope immediately. Run perpendicular to the slide direction, not downhill. Alert neighbors by shouting.\nShelter: Take refuge in a solid building far from the base of the hill. Avoid valleys and low ground.\nSupplies: Grab emergency bag with documents, water, and a flashlight. Wear sturdy footwear.\nContacts: Wave from high visible ground. Use a mirror or torch to signal if help does not arrive."
+  },
+  {
+    "instruction": "Cyclone is approaching our coastal village. Winds are very strong.",
+    "context": "Disaster: Hurricane, Location: Coastal Odisha, India",
+    "response": "Immediate Actions: Shut all windows and doors. Move to the strongest interior room away from windows. Lie flat if the roof begins to shake.\nShelter: Go to a designated cyclone shelter if reachable within 30 minutes. If not, stay in your strongest room.\nSupplies: Fill containers and bathtubs with water now before supply fails. Keep food, torch, and radio within reach.\nContacts: After the eye passes and calm feels temporary, do not go outside. The back wall of the storm is coming."
+  },
+  {
+    "instruction": "Our river has dried up completely. Crops are failing. No water for drinking.",
+    "context": "Disaster: Drought, Location: Marathwada, India",
+    "response": "Immediate Actions: Conserve all available water strictly. Stop all non-essential water use immediately. Collect morning dew from leaves using cloth if needed.\nShelter: Limit time outdoors especially between 11am and 4pm to reduce dehydration.\nSupplies: Prioritize drinking water for children and elderly. Boil or treat any alternative water source before consuming.\nContacts: Contact local government drought relief cell or Red Cross for emergency water tanker support."
+  },
+  {
+    "instruction": "Flash floods are sweeping through our community. Roads are blocked.",
+    "context": "Disaster: Flood, Location: Sylhet, Bangladesh",
+    "response": "Immediate Actions: Move immediately to upper floors. Do not try to cross any flowing water even if it looks shallow. Six inches of fast water can knock you over.\nShelter: Stay above ground level. If on a roof, signal with bright colored cloth.\nSupplies: Emergency water, torch, whistle, and any dry food. Waterproof your documents in a plastic bag.\nContacts: Tune a battery radio to emergency broadcasts. Signal with mirror flashes toward any helicopter or boat."
+  },
+  {
+    "instruction": "A volcano near our town is erupting. Ash is falling heavily.",
+    "context": "Disaster: Volcanic Eruption, Location: Mount Sinabung area, Indonesia",
+    "response": "Immediate Actions: Cover your nose and mouth with a damp cloth or N95 mask immediately. Seal doors and windows with wet towels or tape. Evacuate if an official order is given.\nShelter: Stay indoors in a sealed room. Thick ash can collapse roofs so avoid weak structures.\nSupplies: Goggles for eye protection against ash. Water for drinking and cloth dampening. Sturdy shoes.\nContacts: Monitor community emergency radio. Do not return until authorities confirm the eruption has stabilized."
+  },
+  {
+    "instruction": "We have no food or clean water for three days. There is no help in sight.",
+    "context": "Disaster: General Emergency, Location: Remote Region, Sub-Saharan Africa",
+    "response": "Immediate Actions: Ration all remaining food and water strictly. Children and the sick get priority. Collect any rainwater in clean containers.\nShelter: Conserve energy by resting in shade. Avoid heat exposure to reduce water loss.\nSupplies: Eat small amounts every 4 to 6 hours to preserve energy. Boil water for at least 1 minute before drinking. Search for roots, edible plants, or morning dew.\nContacts: Use any reflective material such as a mirror or foil to signal passing aircraft. Lay rocks or sticks in a large X pattern in an open clearing."
+  },
+  {
+    "instruction": "A major earthquake has collapsed buildings. Many people are trapped.",
+    "context": "Disaster: Earthquake, Location: Kathmandu, Nepal",
+    "response": "Immediate Actions: Check yourself for injuries before helping others. Do not enter damaged buildings. Aftershocks will come. Move to open ground.\nShelter: Stay away from collapsed structures and overhead lines. Set up outdoors if weather permits.\nSupplies: First aid for bleeding wounds. Use cloth strips as bandages. Do not move anyone with a possible spinal injury.\nContacts: Assign one person to shout and listen every 5 minutes. Trapped persons should tap rhythmically on pipes to guide rescuers."
+  },
+  {
+    "instruction": "There is a tsunami warning. We are in a coastal area.",
+    "context": "Disaster: Tsunami, Location: Coastal Tamil Nadu, India",
+    "response": "Immediate Actions: Do not wait. Move immediately inland and uphill. Do not stop to collect belongings. If you can see the ocean receding unusually, run immediately without waiting for an alarm.\nShelter: Move to high ground at least 30 meters above sea level or 3 kilometers inland. If not possible, go to the top floor of a strong concrete building.\nSupplies: Nothing matters except your life right now. Move first, everything else later.\nContacts: Help elderly and children move first. Call out to anyone near the shore to run inland."
+  },
+  {
+    "instruction": "Several children and elderly have severe diarrhea and vomiting after flood.",
+    "context": "Disaster: Flood Aftermath / Disease, Location: Rural Bangladesh",
+    "response": "Immediate Actions: Boil all water for at least 1 full minute before drinking or cooking. Stop eating any food that contacted floodwater.\nShelter: Isolate sick individuals to prevent spread. Wash hands with soap or ash after contact.\nSupplies: Make Oral Rehydration Solution: 1 liter boiled water, 6 teaspoons sugar, half teaspoon salt. Give small sips every few minutes.\nContacts: Alert the nearest health post or community health worker immediately. Cholera spreads fast in flood conditions."
+  },
+  {
+    "instruction": "Ice storm has knocked out all electricity. We have no heat.",
+    "context": "Disaster: Winter Storm, Location: Ontario, Canada",
+    "response": "Immediate Actions: Move everyone into one small interior room to preserve body heat. Block door gaps with towels. Do not burn charcoal or use gas stoves indoors.\nShelter: The smallest room retains heat best. Layer all available clothing including hats and gloves.\nSupplies: Candles provide warmth and light. Use body heat by wrapping everyone in blankets together. Store snow water inside to melt for drinking.\nContacts: Signal from a window with a flashlight at night. Hang a bright cloth outside when safe to do so."
+  },
+  {
+    "instruction": "Bushfire is surrounding our rural property. We cannot evacuate now.",
+    "context": "Disaster: Wildfire, Location: Victoria, Australia",
+    "response": "Immediate Actions: Move to your shelter-in-place room now. Fill sinks, baths, and buckets with water. Wet all exterior walls if a hose is available. Seal gaps under doors with wet towels.\nShelter: Choose a room with the fewest windows on the opposite side of the approaching fire. Lie low under windows.\nSupplies: Woolen blankets for protection from radiant heat. Torch, water, wet cloth masks. Stay hydrated.\nContacts: When fire front passes in roughly 30 minutes, check for spot fires inside. Emerge carefully and signal emergency services."
+  },
+  {
+    "instruction": "A chemical spill has happened near our neighborhood. There is a strange smell.",
+    "context": "Disaster: Chemical Hazard, Location: Industrial Zone",
+    "response": "Immediate Actions: Do not go toward the source. Move crosswind or upwind away from the smell. Cover nose and mouth with a wet cloth immediately.\nShelter: Shelter in place inside a sealed building if evacuation is not possible. Turn off all air conditioning and ventilation.\nSupplies: Seal windows and vents with tape or damp cloths. Do not eat or drink anything that may have been exposed.\nContacts: Do not use open flames or electrical switches near the spill area. Wait for official all-clear before going outside."
+  },
+  {
+    "instruction": "我们被洪水困住了，无法撤离。",
+    "context": "Disaster: Flood, Location: Guangdong, China",
+    "response": "Immediate Actions: Stay on the highest floor. Do not attempt to swim through floodwater. Wave a bright colored item toward rescue helicopters.\nShelter: Avoid the rooftop in lightning. Stay at the highest interior level.\nSupplies: Store drinking water in containers now. Keep identification documents in a waterproof bag.\nContacts: Use a flashlight to signal SOS in 3 short, 3 long, 3 short bursts toward any rescue craft."
+  },
+  {
+    "instruction": "hamnachukua maji machafu na watoto wanaougua.",
+    "context": "Disaster: Drought/Disease, Location: Rural Kenya",
+    "response": "Immediate Actions: Boil all water immediately for at least one minute. Do not give unboiled water to children.\nShelter: Rest in shade to reduce dehydration. Limit physical activity in heat of day.\nSupplies: Make oral rehydration solution with boiled water, sugar, and salt. Give sips every 10 minutes to sick children.\nContacts: Inform the nearest community health volunteer or local clinic of sick children immediately."
+  },
+  {
+    "instruction": "Nuestra casa fue arrasada por el huracán. No tenemos refugio.",
+    "context": "Disaster: Hurricane, Location: Puerto Rico",
+    "response": "Immediate Actions: Find the nearest solid concrete structure immediately. Stay low and away from windows and metal objects.\nShelter: A concrete stairwell or interior bathroom offers the best protection in a damaged structure.\nSupplies: Purify water by boiling or using bleach drops. Avoid flooded roads and downed power lines.\nContacts: Once safe, hang a visible cloth signal from your location so relief teams can find you."
+  },
+  {
+    "instruction": "We are in a refugee camp and a violent storm is approaching.",
+    "context": "Disaster: Storm, Location: Cox's Bazar, Bangladesh",
+    "response": "Immediate Actions: Secure tent pegs and ropes immediately. Move any unsecured items inside. Identify the nearest solid building in the camp.\nShelter: If winds become extreme, abandon the tent and shelter behind or inside any solid structure even a concrete wall.\nSupplies: Keep water containers sealed. Prepare emergency bag: documents, any medications, water.\nContacts: Follow instructions from camp management and UN protection staff immediately without delay."
   }
 ]
