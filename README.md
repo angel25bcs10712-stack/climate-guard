@@ -1,3 +1,5 @@
+![ClimateGuard](climateguard-card.png)
+
 # 🛡️ ClimateGuard — Offline Disaster Preparedness Assistant
 
 > **Gemma 4 Good Hackathon** | Kaggle × Google DeepMind | May 2026
