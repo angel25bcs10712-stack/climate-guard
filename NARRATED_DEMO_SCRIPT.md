@@ -41,16 +41,18 @@
 
 ---
 
-## 🕒 [2:00 - 2:30] Live Incident Map & Bilingual Support
+## 🕒 [2:00 - 2:30] Offline GPS Satellite Location & Map (Zero Internet Needed)
 *(Scroll back up to the Location box. Click '📍 Use My Location'.)*
 
-**"We've also built a Live Incident Map. With one click, it uses your device's GPS to find your location and maps the disaster radius—again, using open-source, cacheable map data."**
-*(The map slides down, showing the blue circle for the flood zone.)*
+**"Next, we demonstrate our offline spatial intelligence. When cell towers are down, normal web geocoding APIs are dead. That is why ClimateGuard's GPS system is engineered to work 100% offline."**
+*(The coordinates box populates with raw GPS coordinates e.g. "25.5941, 85.1376", showing the yellow warning: "📡 Using GPS coordinates (offline mode)")*
 
-**"ClimateGuard is built for global impact. If it detects we are in India, for example..."**
-*(Change location to: 'Patna, Bihar, India'. Click 'GET SURVIVAL GUIDANCE'.)*
-*(Wait for it to load, then scroll down to the response.)*
-**"Gemma dynamically translates the critical survival steps into Hindi, alongside English, ensuring rural and non-English speaking communities get the exact same life-saving help."**
+**"By reading direct satellite GPS hardware signals, the application parses raw latitude and longitude offline, instantly loading pre-cached map tile graphics to draw the precise hazard impact circle."**
+*(The Leaflet map slides down, showing the safety boundary circle for the flood zone.)*
+
+**"If these offline GPS coordinates map to a high-risk region like Patna, India..."**
+*(Scroll down to the response panel)*
+**"ClimateGuard automatically detects the locality, and our fine-tuned Gemma model dynamically renders the critical survival steps in Hindi alongside English side-by-side, ensuring rural volunteers get identical, life-saving clarity."**
 
 ---
 
