@@ -24,8 +24,10 @@ All responses follow a strict emergency structure:
 - Contacts
 
 ## Tech Stack
-- AI runtime: Gemma via Ollama (offline local inference)
-- Fine-tuning: Unsloth QLoRA (4-bit)
+- AI runtime: Gemma via Ollama (offline local inference, default: `gemma3:4b` for edge devices)
+- Fine-tuning Target: Google's flagship dense **Gemma 4 31B Instruct** (`unsloth/gemma-4-31b-it-bnb-4bit`)
+- Fine-tuned Model Name: **ClimateGuard-Gemma-4-31B**
+- Fine-tuning: Unsloth QLoRA (4-bit, Kaggle T4 GPU)
 - Backend: Python + FastAPI
 - Frontend: Single-file HTML/CSS/JS
 - Multimodal: Vision-assisted image analysis through local model inference

@@ -50,10 +50,10 @@ Billions of people in rural Bangladesh, Sub-Saharan Africa, and Pacific Island n
 | Component | Technology |
 |---|---|
 | AI Model | Gemma via Ollama (default: `gemma3:4b`) |
-| Fine-tuning | Unsloth QLoRA (4-bit, Kaggle T4 GPU) |
+| Fine-tuning | Unsloth QLoRA 4-bit (`unsloth/gemma-4-31b-it-bnb-4bit`) |
 | Backend | Python + FastAPI (async) |
 | Frontend | Vanilla HTML/CSS/JS |
-| Image Analysis | Gemma multimodal vision |
+| Image Analysis | Gemma 3 Multimodal vision |
 | Function Calling | Native Gemma 4 tool use |
 
 ---
@@ -123,7 +123,7 @@ climate-guard/
 |---|---|
 | **Global Resilience — Climate & Green Energy** | Core use case: offline climate disaster guidance |
 | **Ollama Special Mention** | Entire inference runs via Ollama locally |
-| **Unsloth Special Mention** | Fine-tuned Gemma on disaster data using Unsloth QLoRA |
+| **Unsloth Special Mention** | Fine-tuned Google flagship dense **Gemma 4 31B** on disaster data using Unsloth QLoRA |
 | **Impact Category** | Serves underserved rural communities with zero connectivity |
 
 ---

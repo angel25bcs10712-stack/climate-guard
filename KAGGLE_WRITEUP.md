@@ -22,14 +22,14 @@ Most existing disaster apps rely on cloud APIs, real-time databases, or high-ban
 We utilized the Gemma ecosystem in two distinct ways to build a robust offline pipeline:
 
 ### 1. Fine-Tuning with Unsloth (Kaggle Environment)
-We used Kaggle's T4 GPUs and the **Unsloth** library to experiment with fine-tuning the `gemma-2-2b-it` model on a custom JSON dataset of 20+ global disaster scenarios.
-* **Objective:** Align the model to output highly structured emergency formats (Immediate Actions, Shelter, Supplies, Contacts) and ruthlessly avoid generating conversational fluff ("Sure! I can help with that...").
-* **Implementation:** We leveraged LoRA (Rank 16, Alpha 16) targeting the `q_proj, k_proj, v_proj` modules to adapt the 2B model for high-stress, low-latency reasoning.
+We used Kaggle's T4 GPUs and the **Unsloth** library to experiment with fine-tuning the flagship dense model, **Gemma 4 31B Instruct (`unsloth/gemma-4-31b-it-bnb-4bit`)**, on our custom dataset of global survival scenarios and impact mitigation instructions.
+* **Objective:** Align the model to output highly structured emergency formats (Immediate Actions, Shelter, Supplies, Contacts) and ruthlessly avoid generating conversational fluff, creating the **ClimateGuard-Gemma-4-31B** model.
+* **Implementation:** We leveraged LoRA (Rank 16, Alpha 16) targeting the attention modules to adapt this 31B powerhouse for high-stress, low-latency, and hyper-reliable reasoning.
 
 ### 2. Local Inference via Ollama (Edge Environment)
 For the final edge application, we wrapped the Gemma models using **Ollama** and a **FastAPI** backend to serve the frontend.
-* We utilize `gemma:2b` as the core lightning-fast reasoning engine.
-* We paired it with `gemma-vision` capabilities to process user-uploaded imagery of the disaster zone.
+* We utilize **Gemma 3 4B (`gemma3:4b`)** as the core lightning-fast reasoning engine for standard edge devices.
+* We paired it with **Gemma 3 Vision** capabilities to process user-uploaded imagery of the disaster zone.
 * The system prompt was engineered to force the model to pull from its vast parametric memory of global emergency helplines (e.g., NDMA in India, NEMA in Nigeria, SES in Australia).
 
 ---
@@ -37,8 +37,8 @@ For the final edge application, we wrapped the Gemma models using **Ollama** and
 ## 🏗️ Technical Architecture
 * **Frontend:** Vanilla HTML/CSS/JS with Glassmorphism UI (designed for low-light/nighttime readability). Integrated with Leaflet.js for offline-capable map rendering and Web Speech APIs for STT/TTS.
 * **Backend:** Python FastAPI. Handles rate-limiting, synchronous prompt engineering, and interfaces with the local LLM.
-* **Model Engine:** Ollama running Gemma 2B (text) and Gemma Vision (image).
-* **Training:** Unsloth + HuggingFace TRL for QLoRA fine-tuning in Kaggle notebooks.
+* **Model Engine:** Ollama running Gemma 3 4B (text) and Gemma 3 Vision (image).
+* **Training:** Unsloth + HuggingFace TRL for QLoRA fine-tuning of Gemma 4 31B.
 
 ---
 

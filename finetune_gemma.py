@@ -15,7 +15,7 @@ from datasets import load_dataset
 
 # 1. Load Model & Tokenizer
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "unsloth/gemma-4-4b-it-bnb-4bit", # Using the 4-bit quantized version
+    model_name = "unsloth/gemma-4-31b-it-bnb-4bit", # Using the 31B 4-bit quantized version for frontier reasoning
     max_seq_length = 2048,
     load_in_4bit = True,
 )
@@ -76,5 +76,5 @@ trainer = SFTTrainer(
 trainer.train()
 
 # 7. Save the Fine-tuned Model for Ollama
-model.save_pretrained_gguf("climateguard_gemma_4b", tokenizer, quantization_method = "q4_k_m")
+model.save_pretrained_gguf("climateguard_gemma_31b", tokenizer, quantization_method = "q4_k_m")
 print("Model saved and ready for Ollama deployment.")

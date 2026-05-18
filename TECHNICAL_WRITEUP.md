@@ -16,10 +16,9 @@ ClimateGuard is an offline-first assistant running on consumer hardware.
 
 ## 3. Technical Execution
 ### AI Model Strategy
-- **Core Runtime Model**: **Gemma 3 4B (`gemma3:4b`)** served locally via Ollama.
-- **Fine-tuning Target**: **Gemma 4 4B instruct checkpoint (`unsloth/gemma-4-4b-it-bnb-4bit`)** in the training pipeline.
-- **Fine-tuning**: Trained on a curated dataset of 30+ high-quality survival scenarios, optimizing for structured output in emergency contexts.
-- **Function Calling**: Implemented native function definitions within the model payload to allow the AI to "think" about using local sensor tools.
+- **Fine-tuning Target**: **Gemma 4 31B Instruct checkpoint (`unsloth/gemma-4-31B-it-bnb-4bit`)** in the training pipeline.
+- **Fine-tuned Model**: **ClimateGuard-Gemma-4-31B** (saved locally as `climateguard_gemma_31b`), trained on a curated dataset for impact-based disaster preparedness and emergency response, optimizing for structured output in extreme stress contexts.
+- **Function Calling**: Implemented native function definitions within the model payload to allow the AI to "think" about using local sensor tools (e.g., weather sensors).
 - **Structured Safety Format**: Enforces a fixed emergency response layout (Immediate Actions, Shelter, Supplies, Contacts) to reduce ambiguity under stress.
 
 ### Architecture
