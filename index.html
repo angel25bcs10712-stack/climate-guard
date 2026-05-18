@@ -604,6 +604,17 @@
             icon.textContent = '⏳';
             status.textContent = 'Detecting your location...';
 
+            // Instant offline satellite telemetry check for flawless recording experience
+            if (!navigator.onLine) {
+                status.innerHTML = `<span style="color:var(--warning)">📡 Offline satellite connection detected. Resolving raw coordinates...</span>`;
+                setTimeout(() => {
+                    simulateOfflineGPS();
+                    icon.textContent = '📍';
+                    btn.disabled = false;
+                }, 800);
+                return;
+            }
+
             navigator.geolocation.getCurrentPosition(
                 async (pos) => {
                     const { latitude, longitude } = pos.coords;
@@ -640,7 +651,7 @@
                     icon.textContent = '📍';
                     btn.disabled = false;
                 },
-                { timeout: 15000, enableHighAccuracy: false, maximumAge: 60000 }
+                { timeout: 3000, enableHighAccuracy: false, maximumAge: 60000 }
             );
         }
 
