@@ -1,4 +1,3 @@
-![ClimateGuard Banner](climateguard_banner.jpg)
 
 # 🛡️ ClimateGuard — Offline Disaster Preparedness Assistant
 
